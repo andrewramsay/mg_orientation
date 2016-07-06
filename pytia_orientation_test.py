@@ -78,14 +78,14 @@ if __name__ == "__main__":
     signals = []
     relative_signal = TiASignalConfig(channels=1, sample_rate=100, blocksize=1, \
                             callback=relative_callback, id=(sd,), is_master=True, \
-                            sigtype=pytia.TIA_SIG_USER_2)
+                            sigtype=pytia.TIA_SIG_USER_1)
     signals.append(relative_signal)
 
     if config.basic_tilt_outputs:
         # basic tilt signal for all IMUs
         basic_signal = TiASignalConfig(channels=5, sample_rate=100, blocksize=1, \
                                 callback=basic_callback, id=(sd,), is_master=False, \
-                                sigtype=pytia.TIA_SIG_USER_1)
+                                sigtype=pytia.TIA_SIG_USER_2)
         signals.append(basic_signal)
 
     # start the server with the list of signals to use
@@ -95,7 +95,6 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(0.1)
-            relative_callback([sd])
     except KeyboardInterrupt:
         print('Closing connection...')
 
